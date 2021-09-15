@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{page?}', [PageController::class, 'index'])
+    ->where(array('page' => '[0-9]+'))
+    ->name('page');
+
+Route::get('/admin/activity/{page?}', [AdminController::class, 'index'])
+    ->where(array('page' => '[0-9]+'))
+    ->name('admin.activity');
